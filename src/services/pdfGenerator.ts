@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { DailyReport } from '../types';
+import { getSavedLogoDataUrl } from './driveAssetService';
 
 /**
  * Compresses an image dataUrl to a lightweight JPEG DataURL
@@ -70,6 +71,20 @@ export async function generateReportPdf(report: DailyReport): Promise<Blob> {
     doc.rect(0, 0, pageWidth, 8, 'F');
     doc.setFillColor(234, 179, 8); // Gold trim #eab308
     doc.rect(0, 8, pageWidth, 1.5, 'F');
+
+    // Render Custom Logo from Drive ASSET folder if available
+    const savedLogo = getSavedLogoDataUrl();
+    if (savedLogo) {
+      try {
+        doc.addImage(savedLogo, 'PNG', marginX, 12, 18, 22, undefined, 'FAST');
+      } catch (e) {
+        try {
+          doc.addImage(savedLogo, 'JPEG', marginX, 12, 18, 22, undefined, 'FAST');
+        } catch (err) {
+          console.warn('Could not render logo image to PDF', err);
+        }
+      }
+    }
 
     // Header KOP (shown on each page for official legal format)
     doc.setFont('helvetica', 'bold');

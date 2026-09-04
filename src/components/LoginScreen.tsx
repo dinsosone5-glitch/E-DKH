@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Camera, RefreshCw, KeyRound, ArrowRight, UserCheck, AlertCircle } from 'lucide-react';
 import { ASNUser } from '../types';
 import { getStoredUsers, setCurrentUser, saveUser } from '../services/storage';
+import { LogoMalut } from './LogoMalut';
 
 interface LoginProps {
   onLoginSuccess: (user: ASNUser) => void;
@@ -127,7 +128,11 @@ export const LoginScreen: React.FC<LoginProps> = ({ onLoginSuccess, onNavigateRe
             <canvas ref={canvasRef} className="hidden" />
           </div>
 
-          <h2 className="mt-4 text-2xl font-black text-white tracking-wide drop-shadow-md text-center">
+          <div className="mt-3 bg-white/90 rounded-xl p-1.5 shadow-md flex items-center justify-center">
+            <LogoMalut className="w-9 h-11" />
+          </div>
+
+          <h2 className="mt-2 text-2xl font-black text-white tracking-wide drop-shadow-md text-center">
             DINAS SOSIAL
           </h2>
           <p className="text-white/90 font-medium text-sm drop-shadow-sm text-center">

@@ -91,10 +91,10 @@ export const DashboardScreen: React.FC<DashboardProps> = ({ user, onLogout }) =>
     <div className="flex h-screen w-full bg-gray-100 font-sans overflow-hidden" style={{ backgroundColor: '#F3F4F6' }}>
       {/* Sidebar: Clean Minimalism Slate 900 */}
       <aside className="w-64 bg-slate-900 text-white flex flex-col flex-shrink-0 z-30 shadow-xl">
-        {/* Brand Header */}
+        {/* Brand Header with Logo Malut */}
         <div className="p-5 border-b border-slate-800 flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-black text-xl text-white shadow-md shadow-blue-500/20">
-            E
+          <div className="w-10 h-12 flex items-center justify-center flex-shrink-0">
+            <LogoMalut className="w-10 h-12 object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-base leading-tight tracking-tight">E-DKH</span>

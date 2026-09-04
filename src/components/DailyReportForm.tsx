@@ -9,6 +9,7 @@ import { compressImage, generateReportPdf } from '../services/pdfGenerator';
 import { ensureUserFolderHierarchy, uploadPdfToDrive } from '../services/drive';
 import { saveReport, getStoredReports } from '../services/storage';
 import { HeaderKopDinas } from './LogoMalut';
+import { DriveLogoManager } from './DriveLogoManager';
 import confetti from 'canvas-confetti';
 
 interface ReportFormProps {
@@ -246,6 +247,12 @@ export const DailyReportForm: React.FC<ReportFormProps> = ({
         onChange={handleFileChange}
         accept="image/*"
         className="hidden"
+      />
+
+      {/* Dynamic Google Drive Logo Malut Sync from ASSET folder */}
+      <DriveLogoManager
+        isDriveConnected={isDriveConnected}
+        onConnectDrive={onConnectDrive}
       />
 
       <div className="grid grid-cols-12 gap-6">

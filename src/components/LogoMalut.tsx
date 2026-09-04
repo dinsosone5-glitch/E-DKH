@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getSavedLogoDataUrl, saveLogoDataUrl } from '../services/driveAssetService';
 
-export const LogoMalut: React.FC<{ className?: string }> = ({ className = "w-14 h-16" }) => {
+export const LogoMalut: React.FC<{ className?: string; alt?: string }> = ({
+  className = "w-14 h-16",
+  alt = "Lambang Provinsi Maluku Utara"
+}) => {
+  const [logoUrl, setLogoUrl] = useState<string | null>(() => getSavedLogoDataUrl());
+
+  useEffect(() => {
+    // Listen to storage updates if logo is synced from Drive
+    const handleStorageChange = () => {
+      setLogoUrl(getSavedLogoDataUrl());
+    };
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('edkh_logo_updated', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('edkh_logo_updated', handleStorageChange);
+    };
+  }, []);
+
+  // If customized logo from Drive ASSET folder is available, render it cleanly
+  if (logoUrl) {
+    return (
+      <img
+        src={logoUrl}
+        alt={alt}
+        className={`${className} object-contain`}
+        referrerPolicy="no-referrer"
+      />
+    );
+  }
+
+  // Official Vector Lambang Provinsi Maluku Utara (High precision fallback)
   return (
     <svg viewBox="0 0 300 360" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Outer shield boundary */}
+      {/* Outer red shield boundary */}
       <path
         d="M 150 15 
            C 200 15, 270 45, 285 85 
@@ -34,14 +66,14 @@ export const LogoMalut: React.FC<{ className?: string }> = ({ className = "w-14 
         fill="#facc15"
       />
 
-      {/* Central oval blue horizon & mountain */}
+      {/* Central oval blue horizon & sea */}
       <ellipse cx="150" cy="180" rx="90" ry="85" fill="#0284c7" />
       <path d="M 60 180 Q 150 160 240 180 L 240 230 L 60 230 Z" fill="#1e3a8a" />
-      {/* Mountain peak with snow */}
+      {/* Mountain peak (Gunung Gamalama / Kie Matubu) */}
       <polygon points="150,115 195,180 105,180" fill="#f8fafc" stroke="#94a3b8" strokeWidth="2" />
       <polygon points="150,115 168,140 132,140" fill="#ffffff" />
       
-      {/* Golden Wings / Padi & Kapas Wreath */}
+      {/* Golden Wings / Untaian Padi & Kapas */}
       <path
         d="M 70 240 C 60 180, 70 120, 110 80 C 100 110, 100 170, 120 220 Z"
         fill="#eab308"
@@ -51,14 +83,14 @@ export const LogoMalut: React.FC<{ className?: string }> = ({ className = "w-14 
         fill="#eab308"
       />
 
-      {/* Salawaku & Kalawai (Traditional shield & spear / Parang & Salawaku) */}
+      {/* Traditional Shield & Parang / Salawaku */}
       <rect x="135" y="195" width="30" height="42" rx="4" fill="#dc2626" stroke="#fff" strokeWidth="2" />
       <circle cx="150" cy="185" r="14" fill="#f59e0b" stroke="#fff" strokeWidth="2" />
       <circle cx="150" cy="185" r="6" fill="#ffffff" />
       <line x1="120" y1="225" x2="180" y2="205" stroke="#18181b" strokeWidth="5" strokeLinecap="round" />
       <line x1="120" y1="205" x2="180" y2="225" stroke="#18181b" strokeWidth="5" strokeLinecap="round" />
 
-      {/* Traditional Base Pita Putih */}
+      {/* Pita Putih */}
       <path
         d="M 75 255 Q 150 280 225 255 Q 210 278 150 285 Q 90 278 75 255 Z"
         fill="#f8fafc"
