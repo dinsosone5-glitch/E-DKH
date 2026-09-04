@@ -1,0 +1,7 @@
+{
+  "name": "E-DKH",
+  "description": "Dokumentasi Kegiatan Harian ASN Dinas Sosial Provinsi Maluku Utara terintegrasi Google Drive",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
